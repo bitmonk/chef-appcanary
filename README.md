@@ -1,10 +1,10 @@
 # appcanary-cookbook
 
-TODO: Enter the cookbook description here.
+Install and configure appcanary
 
 ## Supported Platforms
 
-TODO: List your supported platforms.
+Ubuntu and Debian should work, RHEL / CentOS / Fedora soon
 
 ## Attributes
 

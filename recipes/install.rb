@@ -2,7 +2,7 @@
 # Cookbook Name:: appcanary
 # Recipe:: default
 #
-# Copyright (C) 2015 Justin Alan Ryan 
+# Copyright (C) 2015 Justin Alan Ryan
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,7 +29,16 @@ when 'ubuntu', 'debian'
     notifies :run, 'execute[apt-get update]', :immediately
   end
 when 'redhat', 'centos', 'fedora'
-  # not yet
+  include_recipe 'yum'
+
+  yum_repository 'appcanary_agent' do
+    description 'AppCanary agent'
+    baseurl 'https://packagecloud.io/appcanary/agent/el/' + node['platform_version'].split('.')[0] + '/$basearch'
+    gpgkey 'https://packagecloud.io/gpg.key'
+    gpgcheck false # for some reason the packagecloud key above is not working
+    repo_gpgcheck true
+    action :create
+  end
 end
 
 package 'appcanary'
